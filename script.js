@@ -37,3 +37,27 @@ new Chart(ctx, {
     },
   },
 });
+const curveDate = "29-Sep-2026";
+const tenors = [0.25, 1, 2, 3, 5, 7, 10, 30];
+const curveYields = [5.42, 6.06, 6.68, 6.78, 6.97, 7.11, 7.18, 7.67];
+
+const curvePoints = tenors.map((t, i) => ({ x: t, y: curveYields[i] }));
+
+new Chart(document.getElementById("curveChart"), {
+  type: "line",
+  data: {
+    datasets: [
+      {
+        label: `G-Sec par yield curve (${curveDate})`,
+        data: curvePoints,
+        borderColor: "#1F6B5C",
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: { type: "linear", title: { display: true, text: "Maturity (years)" } },
+      y: { title: { display: true, text: "Yield (%, semi-annual)" } },
+    },
+  },
+});
