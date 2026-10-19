@@ -37,27 +37,39 @@ new Chart(ctx, {
     },
   },
 });
-const curveDate = "29-Sep-2026";
-const tenors = [0.25, 1, 2, 3, 5, 7, 10, 30];
-const curveYields = [5.42, 6.06, 6.68, 6.78, 6.97, 7.11, 7.18, 7.67];
+const tenors = [1, 2, 3, 5, 7, 10, 30];
+const curveAug26 = [5.88, 6.29, 6.42, 6.64, 6.77, 6.96, 7.51];
+const curveAug25 = [5.65, 5.81, 6.03, 6.38, 6.61, 6.64, 7.28];
 
-const curvePoints = tenors.map((t, i) => ({ x: t, y: curveYields[i] }));
+const toPoints = (yields) => tenors.map((t, i) => ({ x: t, y: yields[i] }));
 
 new Chart(document.getElementById("curveChart"), {
   type: "line",
   data: {
     datasets: [
+      { label: "Aug-2026", data: toPoints(curveAug26), borderColor: "#1F6B5C" },
       {
-        label: `G-Sec par yield curve (${curveDate})`,
-        data: curvePoints,
-        borderColor: "#1F6B5C",
+        label: "Aug-2025",
+        data: toPoints(curveAug25),
+        borderColor: "#8B93A6",
+        borderDash: [5, 4],
       },
     ],
   },
   options: {
     scales: {
-      x: { type: "linear", title: { display: true, text: "Maturity (years)" } },
-      y: { title: { display: true, text: "Yield (%, semi-annual)" } },
+      x: {
+        type: "logarithmic",
+        title: { display: true, text: "Maturity (years)" },
+        afterBuildTicks: (axis) => {
+          axis.ticks = tenors.map((t) => ({ value: t }));
+        },
+        ticks: {
+          autoSkip: false,
+          callback: (value) => value + "Y",
+        },
+      },
+      y: { title: { display: true, text: "Yield (%, month-end)" } },
     },
   },
 });
