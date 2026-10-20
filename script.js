@@ -112,3 +112,46 @@ new Chart(document.getElementById("realChart"), {
     datasets: [{ label: "10Y minus CPI (%)", data: realRate, borderColor: "#1F6B5C" }],
   },
 });
+// ---- RBI policy rates after each MPC meeting ----
+const policyDates = ["Jun-25", "Aug-25", "Oct-25", "Dec-25", "Feb-26", "Apr-26", "Jun-26", "Aug-26", "Oct-26"];
+const repo = [5.50, 5.50, 5.50, 5.25, 5.25, 5.25, 5.25, 5.25, 5.50];
+const sdf = repo.map((r) => +(r - 0.25).toFixed(2));
+const msf = repo.map((r) => +(r + 0.25).toFixed(2));
+
+new Chart(document.getElementById("policyChart"), {
+  type: "line",
+  data: {
+    labels: policyDates,
+    datasets: [
+      { label: "Repo", data: repo, borderColor: "#B4842E", stepped: true },
+      { label: "MSF (ceiling)", data: msf, borderColor: "#8B93A6", borderDash: [4, 3], stepped: true },
+      {
+        label: "SDF (floor)",
+        data: sdf,
+        borderColor: "#8B93A6",
+        borderDash: [4, 3],
+        stepped: true,
+        backgroundColor: "rgba(180, 132, 46, 0.12)",
+        fill: "-1",
+      },
+    ],
+  },
+});
+
+// ---- Short end (FBIL par curve, 29-Sep-2026) vs corridor at that date ----
+const shortTenors = ["3M", "6M", "9M", "1Y"];
+const shortYields = [5.42, 5.85, 5.99, 6.06];
+const repoOn29Sep = 5.25;
+
+new Chart(document.getElementById("shortEndChart"), {
+  type: "line",
+  data: {
+    labels: shortTenors,
+    datasets: [
+      { label: "G-Sec par yield", data: shortYields, borderColor: "#1F6B5C" },
+      { label: "Repo", data: shortTenors.map(() => repoOn29Sep), borderColor: "#B4842E" },
+      { label: "MSF", data: shortTenors.map(() => repoOn29Sep + 0.25), borderColor: "#8B93A6", borderDash: [4, 3] },
+      { label: "SDF", data: shortTenors.map(() => repoOn29Sep - 0.25), borderColor: "#8B93A6", borderDash: [4, 3] },
+    ],
+  },
+});

@@ -5,16 +5,41 @@
 </head>
 <body>
   <h1>India Rates & Macro</h1>
+
   <h2>Inflation vs. target band</h2>
   <canvas id="cpiChart" width="600" height="300"></canvas>
+
   <h2>G-Sec yield curve</h2>
   <canvas id="curveChart" width="600" height="300"></canvas>
-    <h2>G-Sec yields over time</h2>
+
+  <h2>G-Sec yields over time</h2>
   <canvas id="historyChart" width="600" height="300"></canvas>
+
   <h2>Term spread: 2s10s</h2>
   <canvas id="spreadChart" width="600" height="300"></canvas>
+
   <h2>Real rate: 10Y yield minus CPI</h2>
   <canvas id="realChart" width="600" height="300"></canvas>
+  <p>Between Jul-25 and Jul-26, the real rate (10Y minus CPI) fell from 4.8% to 2.4%, mostly because of rising inflation: CPI went up from 1.6% to 4.45%, while the 10-year yield rose only 40 bps. This favours borrowers but not bond investors, whose real return has shrunk. RBI hiked the repo rate by 25 bps in October 2026, shifting its stance to calibrated tightening.</p>
+
+  <h2>RBI policy corridor</h2>
+  <canvas id="policyChart" width="600" height="300"></canvas>
+
+  <h2>Short-end yields vs. policy corridor (FBIL, 29-Sep-2026)</h2>
+    <canvas id="shortEndChart" width="600" height="300"></canvas>
+      <footer>
+    <h2>Methodology and sources</h2>
+    <ul>
+      <li>CPI: MOSPI, all-India combined, YoY %. Final values; latest month provisional. Series rebased to 2024=100 from Jan-26 (previously 2012=100).</li>
+      <li>WPI: Office of the Economic Adviser (DPIIT), YoY %. Series rebased to 2022-23=100 in Jun-26.</li>
+      <li>G-Sec curve and yield history: RBI, month-end yield of SGL transactions in government dated securities.</li>
+      <li>Short-end yields: FBIL G-Sec par yield curve, semi-annual, 29-Sep-2026.</li>
+      <li>Policy rates: RBI MPC statements. SDF = repo − 25 bp; MSF = repo + 25 bp.</li>
+      <li>2s10s spread = 10Y − 2Y yield, in basis points. Real rate = 10Y yield − CPI YoY (ex-post).</li>
+    </ul>
+    <p>Updated monthly from official releases. Last updated: 20-Oct-2026. Built by Tharun Sundar. Not investment advice.</p>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
